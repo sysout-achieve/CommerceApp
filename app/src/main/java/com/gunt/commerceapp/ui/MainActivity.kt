@@ -1,4 +1,4 @@
-package com.gunt.commerceapp
+package com.gunt.commerceapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
