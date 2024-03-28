@@ -17,7 +17,7 @@ data class ResponseSectionProducts(
         @SerializedName("originalPrice")
         val originalPrice: Int,
         @SerializedName("discountedPrice")
-        val discountedPrice: Int,
+        val discountedPrice: Int?,
         @SerializedName("isSoldOut")
         val isSoldOut: Boolean
     ) {

@@ -18,7 +18,7 @@ class MainSectionRepositoryImpl @Inject constructor(
         val responseSection = mainSectionService.getSections(page)
         return Sections(
             sectionInfoList = responseSection.data.map { it.toDomainModel() },
-            nextPage = responseSection.paging.nextPage
+            nextPage = responseSection.paging?.nextPage
         )
     }
 }

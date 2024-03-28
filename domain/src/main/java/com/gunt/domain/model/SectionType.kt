@@ -1,7 +1,7 @@
 package com.gunt.domain.model
 
-enum class SectionType {
-    vertical,
-    horizontal,
-    grid,
+enum class SectionType(val typeName: String) {
+    VERTICAL("vertical"),
+    HORIZONTAL("horizontal"),
+    GRID("grid"),
 }
