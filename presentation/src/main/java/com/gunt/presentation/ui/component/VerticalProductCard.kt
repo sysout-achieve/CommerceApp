@@ -32,10 +32,10 @@ import com.gunt.commerceapp.R
 import com.gunt.domain.model.Product
 import com.gunt.domain.model.SalesStatus
 import com.gunt.presentation.ui.theme.Purple40
-import com.gunt.presentation.ui.util.discountRatio
+import com.gunt.presentation.ui.util.getDiscountRatio
 
 @Composable
-fun VerticalProductCard(product: Product) {
+fun VerticalProductCard(product: Product, onClick: (Product) -> Unit) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
@@ -75,7 +75,7 @@ fun VerticalProductCard(product: Product) {
                 }
             }
             IconButton(
-                onClick = { },
+                onClick = { onClick(product) },
                 modifier = Modifier.align(Alignment.TopEnd)
             ) {
                 Image(
@@ -107,7 +107,7 @@ private fun Price(product: Product) {
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFfa622f),
-                    text = "${discountRatio(product.originalPrice, product.discountedPrice!!)}%",
+                    text = "${getDiscountRatio(product.originalPrice, product.discountedPrice!!)}%",
                     modifier = Modifier.padding(0.dp, 0.dp, 8.dp, 0.dp)
                 )
                 Text(

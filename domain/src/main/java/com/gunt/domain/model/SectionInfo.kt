@@ -4,7 +4,6 @@ data class SectionInfo(
     val title: String,
     val id: Int,
     val type: SectionType,
-    val url: String
-) {
+    val url: String,
     var products: List<Product> = emptyList()
-}
+)

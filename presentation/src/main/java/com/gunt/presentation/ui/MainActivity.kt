@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.gunt.presentation.ui.main.MainSectionsScreen
+import com.gunt.presentation.ui.screen.MainSectionsScreen
 import com.gunt.presentation.ui.theme.CommerceAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CommerceAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background

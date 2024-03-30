@@ -1,4 +1,4 @@
-package com.gunt.presentation.ui.main
+package com.gunt.presentation.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,9 +41,10 @@ import com.gunt.presentation.ui.theme.Purple40
 fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
     val sections by mainViewModel.sections.collectAsState()
     val isLoading by mainViewModel.isLoading.collectAsState()
+    val errorText by mainViewModel.errorText.collectAsState()
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isLoading,
-        onRefresh = mainViewModel::loadNextPage
+        onRefresh = mainViewModel::onRefresh
     )
 
     Box(
@@ -52,10 +53,20 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
             .pullRefresh(pullRefreshState),
         contentAlignment = Alignment.Center
     ) {
+
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
+            if (errorText.isNotEmpty()) {
+                item {
+                    Text(
+                        text = errorText,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                    )
+                }
+            }
             itemsIndexed(sections, key = { _, item -> item.id }) { index, sectionInfo ->
                 Text(
                     text = sectionInfo.title,
@@ -76,7 +87,13 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                         ) {
                             for (product in sectionInfo.products) {
                                 VerticalProductCard(
-                                    product = product
+                                    product = product,
+                                    onClick = {
+                                        if (it.isLike == true) mainViewModel.removeLikeProduct(product)
+                                        else mainViewModel.addLikeProduct(
+                                            product
+                                        )
+                                    }
                                 )
                             }
                         }
@@ -91,7 +108,13 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                                 it.id
                             }) { product ->
                                 ProductCard(
-                                    product = product
+                                    product = product,
+                                    onClick = {
+                                        if (it.isLike == true) mainViewModel.removeLikeProduct(product)
+                                        else mainViewModel.addLikeProduct(
+                                            product
+                                        )
+                                    }
                                 )
                             }
                         }
@@ -112,10 +135,25 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                                             .fillMaxHeight()
                                     ) {
                                         ProductCard(
-                                            product = product
+                                            product = product,
+                                            onClick = {
+                                                if (it.isLike == true) mainViewModel.removeLikeProduct(product)
+                                                else mainViewModel.addLikeProduct(
+                                                    product
+                                                )
+                                            }
                                         )
                                         ProductCard(
-                                            product = sectionInfo.products[(sectionInfo.products.size / 2) + index]
+                                            product = sectionInfo.products[(sectionInfo.products.size / 2) + index],
+                                            onClick = {
+                                                if (it.isLike == true) mainViewModel.removeLikeProduct(
+                                                    sectionInfo
+                                                        .products[(sectionInfo.products.size / 2) + index]
+                                                )
+                                                else mainViewModel.addLikeProduct(
+                                                    sectionInfo.products[(sectionInfo.products.size / 2) + index]
+                                                )
+                                            }
                                         )
                                     }
                                 }
@@ -130,7 +168,7 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                         .height(1.dp)
                         .fillMaxWidth()
                 )
-                if (index >= sections.size - 3 && !isLoading) {
+                if (index >= sections.size - 3 && !isLoading ) {
                     mainViewModel.loadNextPage()
                 }
 
@@ -140,7 +178,9 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
 
         if (isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier.size(50.dp),
+                modifier = Modifier
+                    .size(50.dp)
+                    .align(Alignment.TopCenter),
                 color = Purple40,
                 backgroundColor = Color.White
             )

@@ -9,7 +9,7 @@ data class ResponseSectionProducts(
 ) {
     data class SectionProduct(
         @SerializedName("id")
-        val id: Int,
+        val id: Double,
         @SerializedName("name")
         val name: String,
         @SerializedName("image")
