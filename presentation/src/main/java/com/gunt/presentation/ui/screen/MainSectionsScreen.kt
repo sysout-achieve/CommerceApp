@@ -99,9 +99,11 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                             }) { product ->
                                 ProductCard(
                                     product = product,
-                                    onClick = { item ->
-                                        if (item.isLike == true) mainViewModel.removeLikeProduct(item)
-                                        else mainViewModel.addLikeProduct(item)
+                                    onClick = {
+                                        if (it.isLike == true) mainViewModel.removeLikeProduct(product)
+                                        else mainViewModel.addLikeProduct(
+                                            product
+                                        )
                                     }
                                 )
                             }
@@ -126,7 +128,7 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                                             }
                                         )
                                         ProductCard(
-                                            product = product,
+                                            product = sectionInfo.products[(sectionInfo.products.size / 2) + index],
                                             onClick = { item ->
                                                 if (item.isLike == true) mainViewModel.removeLikeProduct(item)
                                                 else mainViewModel.addLikeProduct(item)
