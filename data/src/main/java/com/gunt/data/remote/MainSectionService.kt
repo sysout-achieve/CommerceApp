@@ -14,6 +14,6 @@ interface MainSectionService {
 
     @GET("section/products")
     suspend fun getSectionProducts(
-        @Query("sectionId") sectionId: Int? = 0
+        @Query("sectionId") sectionId: Int
     ): ResponseSectionProducts
 }
