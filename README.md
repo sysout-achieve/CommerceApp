@@ -149,7 +149,7 @@ Execution Time: 3619 milliseconds<br>
 
 
 ## 결론
-병렬로 데이터를 호출했을 때, 순차적으로 호출한 코드보다 소요시간이 무조건 더 짧은 것을 확인할 수 있었습니다.<br>
+병렬로 데이터를 호출했을 때, 순차적으로 호출한 코드보다 소요시간이 더 짧은 것을 확인할 수 있었습니다.<br>
 따라서<br> 
 > sections api 호출 -> sectionList 응답 받은 후 응답 기준 list의 productList를 병렬로 호출(async, await) -> 결과값 emit<br>
 
