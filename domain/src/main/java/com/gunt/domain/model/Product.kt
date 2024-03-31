@@ -9,7 +9,7 @@ data class Product(
     val isSoldOut: Boolean,
     var isLike: Boolean? = false
 ){
-    fun getSaleStatus():SalesStatus{
+    fun getSalesStatus():SalesStatus{
         if (isSoldOut) return SalesStatus.SOLD_OUT
         if (discountedPrice != null) return SalesStatus.ON_DISCOUNT
         return SalesStatus.ON_SALE

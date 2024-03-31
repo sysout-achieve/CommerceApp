@@ -19,6 +19,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     private val _likeProducts = MutableStateFlow((emptyList<Product>()))
     val likeProducts = _likeProducts.asStateFlow()
+
     init {
         _likeProducts.update {
             val type = object : TypeToken<List<Product>>() {}.type
@@ -30,9 +31,7 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getAllLikeProducts(): Flow<List<Product>> {
-        return likeProducts
-    }
+    override fun getAllLikeProducts(): Flow<List<Product>> = likeProducts
 
     override suspend fun insertLikeProduct(product: Product) {
         val products = _likeProducts.value + product

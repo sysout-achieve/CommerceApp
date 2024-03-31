@@ -55,7 +55,7 @@ fun VerticalProductCard(product: Product, onClick: (Product) -> Unit) {
                 AsyncImage(
                     model = product.image,
                     contentDescription = "product image",
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.FillWidth,
                     modifier = Modifier
                         .aspectRatio(1.5f)
                         .fillMaxWidth()
@@ -90,7 +90,7 @@ fun VerticalProductCard(product: Product, onClick: (Product) -> Unit) {
 
 @Composable
 private fun Price(product: Product) {
-    when (product.getSaleStatus()) {
+    when (product.getSalesStatus()) {
         SalesStatus.ON_SALE -> {
             Text(
                 fontSize = 18.sp,

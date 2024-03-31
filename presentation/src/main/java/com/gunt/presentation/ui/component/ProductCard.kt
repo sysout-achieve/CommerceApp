@@ -56,7 +56,7 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit) {
                 AsyncImage(
                     model = product.image,
                     contentDescription = "product image",
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .size(150.dp, 200.dp)
                         .fillMaxWidth()
@@ -93,7 +93,7 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit) {
 
 @Composable
 private fun Price(product: Product) {
-    when (product.getSaleStatus()) {
+    when (product.getSalesStatus()) {
         SalesStatus.ON_SALE -> {
             Text(
                 fontSize = 18.sp,

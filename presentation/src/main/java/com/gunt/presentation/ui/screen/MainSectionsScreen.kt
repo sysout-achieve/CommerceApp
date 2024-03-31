@@ -80,51 +80,35 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
 
                 when (sectionInfo.type) {
                     SectionType.VERTICAL ->
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                        ) {
+                        Column {
                             for (product in sectionInfo.products) {
                                 VerticalProductCard(
                                     product = product,
-                                    onClick = {
-                                        if (it.isLike == true) mainViewModel.removeLikeProduct(product)
-                                        else mainViewModel.addLikeProduct(
-                                            product
-                                        )
+                                    onClick = { item ->
+                                        if (item.isLike == true) mainViewModel.removeLikeProduct(item)
+                                        else mainViewModel.addLikeProduct(item)
                                     }
                                 )
                             }
                         }
 
                     SectionType.HORIZONTAL ->
-                        LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                        ) {
+                        LazyRow {
                             items(sectionInfo.products, key = {
                                 it.id
                             }) { product ->
                                 ProductCard(
                                     product = product,
-                                    onClick = {
-                                        if (it.isLike == true) mainViewModel.removeLikeProduct(product)
-                                        else mainViewModel.addLikeProduct(
-                                            product
-                                        )
+                                    onClick = { item ->
+                                        if (item.isLike == true) mainViewModel.removeLikeProduct(item)
+                                        else mainViewModel.addLikeProduct(item)
                                     }
                                 )
                             }
                         }
 
                     SectionType.GRID -> {
-                        LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                        ) {
+                        LazyRow {
                             itemsIndexed(sectionInfo.products, key = { _, product ->
                                 product.id
                             }) { index, product ->
@@ -136,23 +120,16 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                                     ) {
                                         ProductCard(
                                             product = product,
-                                            onClick = {
-                                                if (it.isLike == true) mainViewModel.removeLikeProduct(product)
-                                                else mainViewModel.addLikeProduct(
-                                                    product
-                                                )
+                                            onClick = { item ->
+                                                if (item.isLike == true) mainViewModel.removeLikeProduct(item)
+                                                else mainViewModel.addLikeProduct(item)
                                             }
                                         )
                                         ProductCard(
-                                            product = sectionInfo.products[(sectionInfo.products.size / 2) + index],
-                                            onClick = {
-                                                if (it.isLike == true) mainViewModel.removeLikeProduct(
-                                                    sectionInfo
-                                                        .products[(sectionInfo.products.size / 2) + index]
-                                                )
-                                                else mainViewModel.addLikeProduct(
-                                                    sectionInfo.products[(sectionInfo.products.size / 2) + index]
-                                                )
+                                            product = product,
+                                            onClick = { item ->
+                                                if (item.isLike == true) mainViewModel.removeLikeProduct(item)
+                                                else mainViewModel.addLikeProduct(item)
                                             }
                                         )
                                     }
@@ -168,7 +145,7 @@ fun MainSectionsScreen(mainViewModel: MainViewModel = viewModel()) {
                         .height(1.dp)
                         .fillMaxWidth()
                 )
-                if (index >= sections.size - 3 && !isLoading ) {
+                if (index >= sections.size - 3 && !isLoading) {
                     mainViewModel.loadNextPage()
                 }
 
